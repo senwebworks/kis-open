@@ -65,36 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ---- PORTFOLIO CAROUSEL DRAG TO SCROLL ----
-    const slider = document.querySelector('.carousel-container');
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-    slider.addEventListener('mousedown', (e) => {
-        isDown = true;
-        slider.style.cursor = 'grabbing';
-        startX = e.pageX - slider.offsetLeft;
-        scrollLeft = slider.scrollLeft;
-    });
-    
-    slider.addEventListener('mouseleave', () => {
-        isDown = false;
-        slider.style.cursor = 'grab';
-    });
-    
-    slider.addEventListener('mouseup', () => {
-        isDown = false;
-        slider.style.cursor = 'grab';
-    });
-    
-    slider.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - slider.offsetLeft;
-        const walk = (x - startX) * 2; // Scroll-fast
-        slider.scrollLeft = scrollLeft - walk;
-    });
+    // Portfolio Carousel removed
 
     // Set current year in footer
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -179,6 +150,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Hide form content, show success
                 formContent.style.display = 'none';
                 formSuccess.style.display = 'block';
+
+                // Track Google Ads Conversion
+                if (typeof gtag === 'function') {
+                    gtag('event', 'conversion', {
+                        'send_to': 'AW-18138934172/es__CKqJlqccEJzXqMlD',
+                        'value': 1.0,
+                        'currency': 'EUR'
+                    });
+                }
                 
                 // Reset button state for next time
                 submitBtn.querySelector('.content-de').innerHTML = originalDe;
